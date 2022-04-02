@@ -1,0 +1,10 @@
+# https://rust-lang.github.io/rustup-components-history
+[toolchain]
+channel = "stable"
+components = ["cargo", "rustfmt", "clippy", "rust-src", "rust-std"]
+targets = [
+  "aarch64-apple-darwin",
+  "x86_64-apple-darwin",
+  "aarch64-unknown-linux-gnu",
+  "x86_64-unknown-linux-gnu",
+]
