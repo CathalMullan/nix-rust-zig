@@ -78,20 +78,16 @@
             version = cargoToml.package.version;
             root = ./.;
 
+            override = _: {
+              preBuild = ''
+                # exporting HOME to avoid using `/homeless-shelter/Library/Caches`, which will be a read only filesystem
+                # on MacOS
+                export HOME=$TMP
+              '';
+            };
+
             cargoBuild = x: ''cargo $cargo_options zigbuild $cargo_build_options >> $cargo_build_output_json'';
             cargoBuildOptions = x: x ++ [ "--target" "aarch64-unknown-linux-gnu" ];
-          };
-
-          # nix build .#x86_64
-          x86_64 = naerskPlatform.buildPackage {
-            inherit buildInputs;
-
-            name = "nix-rust-zig";
-            version = cargoToml.package.version;
-            root = ./.;
-
-            cargoBuild = x: ''cargo $cargo_options zigbuild $cargo_build_options >> $cargo_build_output_json'';
-            cargoBuildOptions = x: x ++ [ "--target" "x86_64-unknown-linux-gnu" ];
           };
         };
 
